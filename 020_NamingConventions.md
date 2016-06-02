@@ -25,7 +25,7 @@ identifiers including Fields, Variables, Properties, Methods, Parameters, Classe
 16. Avoid adding redundant or meaningless prefixes and suffixes to identifiers
 17. Do not include the parent class name within a property name.
 Example: Customer.Name NOT Customer.CustomerName
-18. Try to prefix Boolean variables and properties with ¡§Can¡¨, ¡§Is¡¨ or ¡§Has¡¨.
+18. Try to prefix Boolean variables and properties with â€œCanâ€, â€œIsâ€ or â€œHasâ€.
 19. Append computational qualifiers to variable names like Average, Count, Sum, Min, and Max where appropriate.
 20. When defining a root namespace, use a Product, Company, or Developer Name as the root.
 

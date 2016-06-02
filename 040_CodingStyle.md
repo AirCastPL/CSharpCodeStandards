@@ -12,8 +12,8 @@ consistent code that is easy to understand and maintain.
 3. Always place curly braces ({ and }) on a new line.
 4. Always use curly braces ({ and }) in conditional statements.
 5. Always use a Tab & Indention size of 4.
-6. Declare each variable independently °V not in the same statement.
-7. Place namespace °ßusing°® statements together at the top of file. Group .NET namespaces above custom namespaces.
+6. Declare each variable independently ‚Äì not in the same statement.
+7. Place namespace ‚Äúusing‚Äù statements together at the top of file. Group .NET namespaces above custom namespaces.
 8. Group internal class implementation by type in the following order:
     a. Member variables.
     b. Constructors & Finalizers.
@@ -39,8 +39,8 @@ consistent code that is easy to understand and maintain.
 19. Place Parameter attribute declarations inline with the parameter.
 20. If in doubt, always err on the side of clarity and consistency.
 21. All comments should be written in the same language, be grammatically correct, and contain appropriate punctuation.
-22. Use // or /// but never /* °K */
-23. Do not °ßflowerbox°® comment blocks.
+22. Use // or /// but never /* ‚Ä¶ */
+23. Do not ‚Äúflowerbox‚Äù comment blocks.
     Example:
     // ***************************************
     // Comment block
@@ -48,7 +48,7 @@ consistent code that is easy to understand and maintain.
 
 24. Use inline-comments to explain assumptions, known issues, and algorithm insights.
 25. Do not use inline-comments to explain obvious code. Well written code is self documenting.
-26. Only use comments for bad code to say °ßfix this code°® °V otherwise remove, or rewrite the code!
+26. Only use comments for bad code to say ‚Äúfix this code‚Äù ‚Äì otherwise remove, or rewrite the code!
 27. Include comments using Task-List keyword flags to allow comment-filtering.
     Example:
     // TODO: Place Database Code Here
@@ -58,15 +58,15 @@ consistent code that is easy to understand and maintain.
 28. Always apply C# comment-blocks (///) to public, protected, and internal declarations.
 29. Only use C# comment-blocks for documenting the API.
 30. Always include <summary> comments. Include <param>, <return>, and <exception> comment sections where applicable.
-31. Include <see cref=°®°®/> and <seeAlso cref=°®°®/> where possible.
+31. Include <see cref=‚Äù‚Äù/> and <seeAlso cref=‚Äù‚Äù/> where possible.
 32. Always add CDATA tags to comments containing code and other embedded markup in order to avoid encoding issues.
     Example:
     /// <example>
-    /// Add the following key to the °ßappSettings°® section of your config:
+    /// Add the following key to the ‚ÄúappSettings‚Äù section of your config:
     /// <code> <![CDATA[
     /// <configuration>
     /// <appSettings>
-    /// <add key=°®mySetting°® value=°®myValue°®/>
+    /// <add key=‚ÄùmySetting‚Äù value=‚ÄùmyValue‚Äù/>
     /// </appSettings>
     /// </configuration>
     ///  ]]> ></code>
