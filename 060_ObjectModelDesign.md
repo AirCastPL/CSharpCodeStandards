@@ -8,70 +8,83 @@ General
     - 屬性是可以繼承，而欄位不能。
 
 
-- Always declare types explicitly within a namespace. Do not use the default “{global}” namespace.
+- 明確的指定 namespace，不要使用預設 `global` namespace。
 
 - Avoid overuse of the public access modifier. Typically fewer than 10% of your types and members will be part of a public API, unless you are writing a class library.
+- 避免濫用public修飾詞.一般來說應該少於10%。
 
 - Consider using internal or private access modifiers for types and members unless you intend to support them as part of a public API.
+- 優先考慮使用 `internal` 或 `private` 修飾詞。
 
 - Never use the protected access modifier within sealed classes unless overriding a protected member of an inherited type.
+- 在 `sealed` 類別，不要使用 `protected`。除非是可繼承的類別
 
-- Avoid declaring methods with more than 5 parameters. Consider refactoring this code.
+
+- 方法避免使用超過5個參數.若超過,考慮重構它吧。
 
 - Try to replace large parameter-sets (> than 5 parameters) with one or more class or struct parameters – especially when used in multiple method signatures.
+- 試著使用class或struct取代大量參數.尤其是在多個方法簽名都會使用情況下。
 
-- Do not use the “new” keyword on method and property declarations to hide members of a derived type.
+- 不要使用 `new` 來隱藏衍生類別的成員。
 
-- Only use the “base” keyword when invoking a base class constructor or base implementation 
-within an override.
+
+- Only use the “base” keyword when invoking a base class constructor or base implementation within an override.
+- 只在建構式或覆寫時，使用”base”關鍵字。
 
 - Consider using method overloading instead of the params attribute (but be careful not to break CLS Compliance of your API’s).
+- 考慮使用方法多載取代”params”。
 
 - Always validate an enumeration variable or parameter value before consuming it. They may contain any value that the underlying Enum type (default int) supports.
+- 在使用列舉變數或參數前，必須先驗證列舉是否定義。有可能是Enum的基底的型別(預設是int)。
 
-		// Example
-		public void Test(BookCategory cat)
-		{
-		if (Enum.IsDefined(typeof(BookCategory), cat))
-		{…}
-		}
+        // Example
+        public void Test(BookCategory cat)
+        {
+        if (Enum.IsDefined(typeof(BookCategory), cat))
+        {…}
+        }
 
-- Consider overriding Equals() on a struct.
+- 考慮覆寫 struct 的Equals()方法。
 
-- Always override the Equality Operator (==) when overriding the Equals() method.
+- 當覆寫Equals()方法時，必須覆寫Equality Operator (==)。
 
-- Always override the String Implicit Operator when overriding the ToString() method.
+- 當覆寫ToString()方法時，必須覆寫String Implicit Operator。
 
-- Always call Close() or Dispose() on classes that offer it.
+- 當類別有提供Close() or Dispose()時，請呼叫它。
 
 - Wrap instantiation of IDisposable objects with a “using” statement to ensure that Dispose() is automatically called.
+- 用”using”來包裝IDisposable介面來確保Dispose()會被自動呼叫。
 
-		// Example
-		using(SqlConnection cn = new SqlConnection(_connectionString))
-		{…}
+        // Example
+        using(SqlConnection cn = new SqlConnection(_connectionString))
+        {…}
 
+- 實作IDisposable介面當類別有參考外部資源時。
 
+- 避免實作Finalizer，不要定義Finalize(),而是使用C#解構式。
 
+- 優先使用聚合而非繼承。
 
-- Always prefer aggregation over inheritance.
+- 避免 '(過早抽象) Premature Generalization'。當清楚意圖時，再建立抽象。
 
-- Avoid “Premature Generalization”. Create abstractions only when the intent is understood.
-
-- Do the simplest thing that works, then refactor when necessary.
+- 使用最簡單的方法，當需要時再重構。
 
 - Always make object-behavior transparent to API consumers.
+- 必須讓使用者清楚物件具備的行為。
 
-- Avoid unexpected side-affects when properties, methods, and constructors are invoked.
+- 在屬性、方法、建構式執行時，避免非預期的副作用。
 
-- Always separate presentation layer from business logic.
+- 將呈現層和商業邏輯層明確分開。
 
-- Always prefer interfaces over abstract classes.
+- 優先使用介面而不是抽象類別。
 
-- Try to include the design-pattern names such as “Bridge”, “Adapter”, or “Factory” as a suffix to class names where appropriate.
+- 使用設計模式的名稱 `Bridge`、`Adapter` 或 `Factory` 來作為類別的後綴詞。
 
 - Only make members virtual if they are designed and tested for extensibility.
+- 只有在需要擴充時才使用 `virtual`。
 
-- Refactor often!
+- 經常重構！
+
 
 
 Attributes
