@@ -14,7 +14,8 @@
 
 1.1 Scope
 ---------
-本文僅適用於 **C# 語言**。但由於使用 C# 語言開發與 .NET Framework 息息相關，所以亦涵蓋部分 .NET Framework Class Library 之用法說明。
+本文僅適用於 **C# 語言**，並以 C# 6.0 為基礎編寫。  
+而使用 C# 語言開發與 **.NET Framework** 息息相關，所以亦涵蓋部分 .NET Framework Class Library 之用法說明。
 
 
 1.2 Terminology & Definitions
@@ -117,3 +118,4 @@
 - https://weblogs.asp.net/lhunt/csharp-coding-standards
 - https://msdn.microsoft.com/zh-tw/library/ms229042(v=vs.100).aspx
 - https://github.com/dennisdoomen/CSharpGuidelines
+- C# Language Specification 5.0

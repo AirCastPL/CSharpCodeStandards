@@ -3,7 +3,7 @@
 
 5.1 General
 -----------
-- **請勿** 省略**存取修飾子 (Access Modifiers)**。明確使用適當的存取修飾子來定義所有的識別子(Identifiers)其存取性，而非使用預設模式。
+- **不要** 省略**存取修飾子 (Access Modifiers)**。明確使用適當的存取修飾子來定義所有的識別子(Identifiers)其存取性，而非使用預設模式。
     - 在 class 與在 interface 等等之預設值皆不同。
     - 明確定義，減少人為誤判。
     
@@ -26,12 +26,6 @@
     ```
 
 
-- ~~Do not use the default (“1.0.*”) versioning scheme. Increment the AssemblyVersionAttribute value manually.~~
-
-- ~~Set the ComVisibleAttribute to false for all assemblies.~~
-
-- ~~Only selectively enable the ComVisibleAttribute for individual classes when needed.~~
-
 - **避免** 使用 unsafe 程式碼，若因特別因素考量使用，則盡可能獨立放置一特別專案中。
     - 減少 Memory Leak 或 Buffer Overflow 可能。
     - 獨立專案可以區分權責，當有錯誤發生時容易追查。
@@ -41,15 +35,16 @@
     - 錯誤的相依性。
     - 混亂的建置順序。
 
+
 5.2 Variables & Types
 ---------------------
-- ~~Try to initialize variables where you declare them.~~
+- **嘗試** 於定義變數時初始化它。
 
 - **總是** 只使用必要的、夠簡單的資料型別、清單或物件。
-    - 最小化需求
+    - 最小化需求。
 
-- **盡可能** 於定義識別子(Identifiers)型別時，使用介面型別代取實際型別。
-    - 最大化彈性
+- **嘗試** 於定義 識別子(Identifiers) 型別時，使用 介面型別 代取 實際型別。
+    - 最大化彈性。
     
     ```csharp
         // **BAD**
@@ -60,9 +55,9 @@
     ```
 
 
-- **總是** 使用 C# 內建型別取代 .NET 基礎型別
-    - 減少記憶型別
-    - 減少人為錯誤
+- **總是** 使用 C# 內建型別取代 .NET 型別。
+    - 減少記憶型別。
+    - 減少人為錯誤。
     
     ```csharp
         // **BAD**
@@ -117,7 +112,6 @@
 
 - Avoid direct casts. Instead, use the “as” operator and check for null.
 - 避免直接轉型，使用 as 來轉型，並檢查是否為null
-    
     ```csharp
         // Example
         object dataObject = LoadData();
@@ -127,14 +121,9 @@
     ```
 
 
-- 對於參考型別陣列，使用for loop來明確初始化
-- Always explicitly initialize arrays of reference types using a for loop.
-
-- 避免實值型別boxing 與 unboxing
-- Avoid boxing and unboxing value types.
-    
+- **避免** 實值型別發生 boxing 與 unboxing。
     ```csharp
-        // Example
+        // **BAD**
         int count = 1;
         object refCount = count;  // Implicitly boxed.
         int newCount = (int)refCount; // Explicitly unboxed.
@@ -155,13 +144,8 @@
 
 - Prefer 'string.Format()' or 'StringBuilder' over string concatenation.
 - 使用String.Format() 與 StringBulider 在字串的串接上
-
-- Never concatenate strings inside a loop.
-- 不要在迴圈中操作字串串接
   
-- ~~Do not compare strings to `string.Empty` or '“”' to check for empty strings. Instead, compare by using `string.Length == 0'.~~
-- ~~檢查空字串時，不要比較String.Empty 或 ""，使用String.Length == 0~~
-- 使用 string.IsNullOrEmpty() 來檢查字串是否有值
+- 使用 string.IsNullOrEmpty() 來檢查字串是否有值。
 
 - 避免字串隱性配置，使用String.Compare() 來判別大小寫    
 - Avoid hidden string allocations within a loop. Use `string.Compare()` for case-sensitive
@@ -191,6 +175,17 @@
             }
         }
     ```
+
+
+
+
+
+Enum 
+Add the FlagsAttribute to bit-mask multiple options. 
+
+
+
+
 
 
 Generics
@@ -501,3 +496,20 @@ Testing
     // Xunit.Assert
     public static void Equal<T>(T expected, T actual)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+Excluded
+---------
+- ~~Never concatenate strings inside a loop.~~
+- ~~Always explicitly initialize arrays of reference types using a for loop.~~
