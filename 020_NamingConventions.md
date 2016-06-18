@@ -6,7 +6,11 @@ identifiers including Fields, Variables, Properties, Methods, Parameters, Classe
 2.1 General Guidelines
 ----------------------
 -  Always use Camel Case or Pascal Case names.
--  使用Pascal Case 或是 Camel Case 
+-  使用Pascal Case 或是 Camel Case
+
+-  Do not use Hungarian Notation!
+-  不要使用匈牙利命名法
+    Example: strName or iCount
 
 -  Avoid ALL CAPS and all lowercase names. Single lowercase words or letters are acceptable.
 -  避免全大寫或全小寫的名稱。單個小寫單詞或字母是可以接受的
@@ -28,10 +32,6 @@ identifiers including Fields, Variables, Properties, Methods, Parameters, Classe
 
 -  Variables and Properties should describe an entity not the type or size.
 -  變數與屬性必須能夠描述他自己
-
--  Do not use Hungarian Notation!
--  不要使用匈牙利命名法
-    Example: strName or iCount
 
 - Avoid using abbreviations unless the full name is excessive.
 - 避免使用縮寫，除非全名真的過長
