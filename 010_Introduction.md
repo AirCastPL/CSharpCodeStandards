@@ -68,13 +68,6 @@
     Reference: [PascalCase, Wikipedia](https://en.wikipedia.org/wiki/PascalCase)
 
 
-- **Common Type System**  
-    The .NET Framework common type system (CTS) defines how types are declared, used, and managed.
-    All native C# types are based upon the CTS to ensure support for cross-language integration.
-
-    Reference: https://msdn.microsoft.com/en-us/library/zcx1eb1e(v=vs.100).aspx
-
-
 - **魔術數字 (Magic Number)**  
     任意的數值用於計算式(Expression)中或作為一變數的初始值，而無法令人了解其明確意義，稱之為魔術數字。
 
@@ -105,4 +98,10 @@
     繼承 `System.Attribute` 的一類別，可用以標示與描述類別、欄位、屬性等其特定之特性，類似 Metadata 的概念。  
     常被翻譯為**屬性**，本文使用**特性**稱之，以與 **屬性 (Property)** 區隔。
 
-    Reference:
+
+1.3 References
+--------------
+本文參考、引用、並基於以下文章為基礎，來編寫：
+- https://weblogs.asp.net/lhunt/csharp-coding-standards
+- https://msdn.microsoft.com/zh-tw/library/ms229042(v=vs.100).aspx
+- https://github.com/dennisdoomen/CSharpGuidelines
