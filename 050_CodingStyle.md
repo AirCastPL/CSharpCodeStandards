@@ -1,11 +1,9 @@
-4. Coding Style
+5. Coding Style
 ===============
-Coding style causes the most inconsistency and controversy between developers. Each developer has a preference, and
-rarely are two the same. However, consistent layout, format, and organization are key to creating maintainable code.
-The following sections describe the preferred way to implement C# source code in order to create readable, clear, and
-consistent code that is easy to understand and maintain.
+於程式開發者間，編寫風格是最容易產生歧異與爭執的。各開發者各有所好，鮮少有相同的。但一致性的排版、撰寫格式及程式碼組織是建立可維護性程式碼的關鍵。  
+以下的章節將提出統一遵循的方針，來實作具可讀性、簡潔以及一致性的程式碼，以簡化維護作業。
 
-4.1 Formatting
+5.1 Formatting
 --------------
 - **總是** 使用 UTF-8 做為檔案文件的編碼方式。
 

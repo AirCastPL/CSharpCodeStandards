@@ -67,6 +67,8 @@
 ###2.2.2 Enum###
 - 使用 帕斯卡命名法(Pascal Case) 為 列舉 命名。
 
+- 嘗試使用 名詞 或 名詞片語 做為 列舉 的名稱。
+
 - **不要** 將 列舉 名稱加上 "Enum" 的後綴詞。
     ```csharp
         // **BAD**
@@ -147,7 +149,7 @@
 | **_**      | 添加底線做為前綴詞          |
 | x          | 不使用                    |
 
-| 識別子                   | `public`      | `internal protected` | `internal` | `protected` | `private` |
+| 識別子類型                | `public`      | `internal protected` | `internal` | `protected` | `private` |
 |------------------------:|:-------------:|:--------------------:|:-----------:|:----------:|:---------:|
 | Namespace               | **P**         |                      |            |             |           |
 | Struct                  | **P**         | **P**                | **P**      | **P**       | **P**     |

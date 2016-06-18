@@ -1,10 +1,10 @@
-5. Language Usage
+6. Language Usage
 ===============
 
-5.1 General
+6.1 General
 -----------
 - **不要** 省略**存取修飾子 (Access Modifiers)**。明確使用適當的存取修飾子來定義所有的識別子(Identifiers)其存取性，而非使用預設模式。
-    - 在 class 與在 interface 等等之預設值皆不同。
+    - 在 class 與在 interface 等之預設值皆不同。
     - 明確定義，減少人為誤判。
     
     ```csharp
@@ -26,21 +26,21 @@
     ```
 
 
-- **避免** 使用 unsafe 程式碼，若因特別因素考量使用，則盡可能獨立放置一特別專案中。
+- **避免** 使用 `unsafe` 程式碼，若因特別因素考量使用，則盡可能獨立放置一特別專案中。
     - 減少 Memory Leak 或 Buffer Overflow 可能。
     - 獨立專案可以區分權責，當有錯誤發生時容易追查。
-    - 通常只有底層才會需要使用 unsafe 程式碼。
+    - 通常只有底層才會需要使用 `unsafe` 程式碼。
 
 - **避免** 組件(Assemblies) 交互參考。
     - 錯誤的相依性。
     - 混亂的建置順序。
 
 
-5.2 Variables & Types
+6.2 Variables & Types
 ---------------------
-- **嘗試** 於定義變數時初始化它。
+- **嘗試** 於定義變數時一併初始化它 (給定值)。
 
-- **總是** 只使用必要的、夠簡單的資料型別、清單或物件。
+- **總是** 選擇使用必要的、最簡單的資料型別、清單或物件。
     - 最小化需求。
 
 - **嘗試** 於定義 識別子(Identifiers) 型別時，使用 介面型別 代取 實際型別。
@@ -55,7 +55,7 @@
     ```
 
 
-- **總是** 使用 C# 內建型別取代 .NET 型別。
+- **總是** 使用 C# 內建型別別稱取代 .NET 型別。
     - 減少記憶型別。
     - 減少人為錯誤。
     
@@ -76,30 +76,23 @@
     ```
 
 
-- Try to use int for any non-fractional numeric values that will fit the int datatype - even variables for non-negative numbers.
+- 嘗試 優先選擇 `int` 型別來存取任何非分數的數值 (且其定義域需與 `int` 數值相符)，即使為一正整數。
+    + 當數值可能會大於 `int` 的定義域時，使用 `long` 型別。
 
-- Only use long for variables potentially containing values too large for an int.
-- 當值可能比int大時，宣告long來使用
+- 嘗試 優先選擇 `double` 型別來存取分數數值，以確保計算小數點時的精度。
 
-- Try to use double for fractional numbers to ensure decimal precision in calculations.
+- **避免** 使用 `float` 型別，除非你完全理解其計算方式與影響。
+    + 而使用 `float` 型別存取的變數，將不會符合 `double` 及 `decimal` 型別。
 
-- Only use float for fractional numbers that will not fit double or decimal.
-- 使用 float 來表示分數，但他可能不符合double和decimal
+- 嘗試 使用 `decimal` 型別來存取須四捨五入至固定精度位數的分數值。常用於金錢方面。
 
-- Avoid using float unless you fully understand the implications upon any calculations.
-- 避免使用float，除非你知道他所造成的影響與計算方式
-
-- Try to use decimal when fractional numbers must be rounded to a fixed precision for calculations. Typically this will involve money.
-- 使用decimal，在可以捨入的數字上，通常這可能牽涉到錢的計算
-
-- Avoid using sbyte, short, uint, and ulong unless it is for interop (P/Invoke) with native libraries.
-- 避免使用sbyte，short，uint，ulong等型別，除非他們可以跟原生的函式庫相容。
+- **避免** 使用 `sbyte`、`short`、`uint`、`ulong` 等型別。
+    + 除 為叫用原生函式庫，與其相容 外。
 
 - Avoid specifying the type for an enum - use the default of int unless you have an explicit need for long (very uncommon).
 - 避免在enum使用特殊型別，使用預設的int，除非你必須使用long
 
-- Avoid using inline numeric literals (magic numbers). Instead, use a Constant or Enum.
-- 避免在函式中使用Magic Number，使用Constant 或 Enum取代
+- **避免** 使用 魔術數字(Magic Number)。使用 常數 (Constant) 或 列舉 (Enum) 取代。
 
 - Avoid declaring string literals inline. Instead use Resources, Constants, Configuration Files, Registry or other data sources.
 - 避免在函式中宣告內嵌式字串變數，使用Resource、Constants、Configuration Files、Registry 或其他data source
@@ -130,22 +123,13 @@
     ```
 
 
-- Floating point values should include at least one digit before the decimal place and one after.
-- float的數值，在浮點術的前後必須包含一個數字
-    
-    ```csharp
-        // Example
-        var totalPercent = 0.05;
-    ```
-
 
 - Try to use the “@” prefix for string literals instead of escaped strings.
 - 在字串變數中，使用@取代逃逸字元
 
-- Prefer 'string.Format()' or 'StringBuilder' over string concatenation.
-- 使用String.Format() 與 StringBulider 在字串的串接上
+- 使用 `string.Format()` 與 `StringBulider` 來串接字串。
   
-- 使用 string.IsNullOrEmpty() 來檢查字串是否有值。
+- 使用 `string.IsNullOrEmpty()` 來檢查字串是否有值。
 
 - 避免字串隱性配置，使用String.Compare() 來判別大小寫    
 - Avoid hidden string allocations within a loop. Use `string.Compare()` for case-sensitive
@@ -511,5 +495,6 @@ Testing
 
 Excluded
 ---------
+- ~~Floating point values should include at least one digit before the decimal place and one after.~~
 - ~~Never concatenate strings inside a loop.~~
 - ~~Always explicitly initialize arrays of reference types using a for loop.~~
