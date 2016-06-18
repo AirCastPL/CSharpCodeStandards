@@ -67,9 +67,21 @@
     ```
     Reference: [PascalCase, Wikipedia](https://en.wikipedia.org/wiki/PascalCase)
 
+- **匈牙利命名法 (Hungarian Notation) **  
+    一種標示 識別子(Identifier) 的命名規則。  
+    由一個或多個小寫字母開始，這些字母用來表示特定類型(Type)或用途，而後再連接真正名稱，字母形式可以是帕斯卡命名法或其他。
+
+    Reference: [Hungarian notation, Wikipedia](https://en.wikipedia.org/wiki/Hungarian_notation)
+
 
 - **魔術數字 (Magic Number)**  
     任意的數值用於計算式(Expression)中或作為一變數的初始值，而無法令人了解其明確意義，稱之為魔術數字。
+
+    *Example:*
+    ```csharp
+        sCustomerName
+        dateIsYourBirthday
+    ```
 
     Reference: [Magic number (programming), Wikipedia](https://en.wikipedia.org/wiki/Magic_number_(programming))
 
@@ -101,7 +113,7 @@
 
 1.3 References
 --------------
-本文參考、引用、並基於以下文章為基礎，來編寫：
+本文參考、引用、並基於以下文章為基礎來編寫：
 - https://weblogs.asp.net/lhunt/csharp-coding-standards
 - https://msdn.microsoft.com/zh-tw/library/ms229042(v=vs.100).aspx
 - https://github.com/dennisdoomen/CSharpGuidelines

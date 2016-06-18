@@ -5,39 +5,50 @@ identifiers including Fields, Variables, Properties, Methods, Parameters, Classe
 
 2.1 General Guidelines
 ----------------------
--  Always use Camel Case or Pascal Case names.
--  使用Pascal Case 或是 Camel Case
 
--  Do not use Hungarian Notation!
--  不要使用匈牙利命名法
-    Example: strName or iCount
+- 使用 帕斯卡命名法(Pascal Case) 或 駝峰式命名法(Camel Case)。
 
--  Avoid ALL CAPS and all lowercase names. Single lowercase words or letters are acceptable.
--  避免全大寫或全小寫的名稱。單個小寫單詞或字母是可以接受的
+- **不要** 使用匈牙利命名法。
+    + 隨著開發工具進步，已不須透過名稱註記才能了解型態。
+    + 不易重構。
 
--  Do not create declarations of the same type (namespace, class, method, property, field, or parameter) and access modifier (protected, public, private, internal) that vary only by capitalization.
--  不要建立相同類型的宣告(包含namespace、class、method、property、field or parameter)與保留字
+    ```csharp
+        // **BAD**
+        var sUserName = user.GetName();
+        
+        // **GOOD**
+        var userName = user.GetName();
+    ```
 
--  Do not use names that begin with a numeric character.
--  不要以數字當做變數命名開頭
 
--  Do add numeric suffixes to identifier names.
--  不要把數字加入變數的中綴詞
+- **不要** 使用全大寫或全小寫的名稱 (除非 單個小寫單詞 或 單個字母)。
+    ```csharp
+        // **BAD**
+        var thisisabook = new Book();
+        
+        // **GOOD**
+        var book = new Book();
+    ```
 
--  Always choose meaningful and specific names.
--  使用有意義的名詞當做變數
 
--  Always err on the side of verbosity not terseness.
--  如果簡潔的命名無法明確表達意義，使用較冗長的命名
+- Do not create declarations of the same type (namespace, class, method, property, field, or parameter) and access modifier (protected, public, private, internal) that vary only by capitalization.
+- 不要建立相同類型的宣告(包含namespace、class、method、property、field or parameter)與保留字
 
--  Variables and Properties should describe an entity not the type or size.
--  變數與屬性必須能夠描述他自己
+- **不要** 使用以數字開頭的名稱。
+    + 實際上 C# 也不允許數字開頭之名稱。
 
-- Avoid using abbreviations unless the full name is excessive.
-- 避免使用縮寫，除非全名真的過長
+- ~~Do add numeric suffixes to identifier names.~~
+- ~~不要把數字加入變數的中綴詞~~
 
-- Avoid abbreviations longer than 5 characters.
-- 避免縮寫超過5個字
+- 使用有意義、明確及具體的名稱。
+
+- Always err on the side of verbosity not terseness.
+- 如果簡潔的命名無法明確表達意義，使用較冗長的命名
+
+- Variables and Properties should describe an entity not the type or size.
+- 變數與屬性必須能夠描述他自己
+
+- **避免** 使用縮寫，除非全名真的過長；且縮寫不應超過5個字。
 
 - Any Abbreviations must be widely known and accepted.
 - 任何的縮寫必須是為大家所知道的
@@ -54,19 +65,36 @@ identifiers including Fields, Variables, Properties, Methods, Parameters, Classe
 - Avoid adding redundant or meaningless prefixes and suffixes to identifiers
 - 避免增加無意義的前餟詞與中綴詞
 
-- Do not include the parent class name within a property name.
-- 屬性名稱命名時，不要包含父類別名稱
+- **避免** 屬性名稱中包含其所屬類別的名稱。
 
-    Example: Customer.Name NOT Customer.CustomerName
+    ```csharp
+        // **BAD**
+        public class Customer {
+            public string CustomerName { get; set; }
+        }
 
-- Try to prefix Boolean variables and properties with “Can”, “Is” or “Has”.
-- 嘗試使用 "Can" "Is" "Has" 在Boolean的命名上
+        // **GOOD**
+        public class Customer {
+            public string Name { get; set; }
+        }
+    ```
+
+
+- 嘗試使用 "Can"、"Is"、"Has" 做為前綴詞，在 `bool` 型別的變數或屬性命名上。
+
+    ```csharp
+        // **GOOD**
+        var isSunday = DateTime.Today.DayOfWeek == DayOfWeek.Sunday;
+
+        // **GOOD**
+        public bool HasEnoughMoney => user.GetMoney() >= cart.GetTotalMoney();
+    ```
+
 
 - Append computational qualifiers to variable names like Average, Count, Sum, Min, and Max where appropriate.
 - 加上 "Average" "Count" "Sum" "Min" "Max" 關鍵字在計量的變數上
 
-- When defining a root namespace, use a Product, Company, or Developer Name as the root.
-- 定義root namespace時，使用產品、公司 或開發者名字
+- 定義 root namespace 時，使用產品或公司名字。
 
 
 2.2 Name Usage & Syntax
