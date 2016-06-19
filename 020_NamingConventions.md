@@ -5,7 +5,9 @@
 
 2.1 General Guidelines
 ----------------------
-- 使用簡潔、有意義、明確、具體的名稱。
+- 名稱 必須是 簡潔、有意義、具體、明確、不易混淆的。
+
+- 使用 英文 命名。
 
 - 使用 帕斯卡命名法(Pascal Case) 或 駝峰式命名法(Camel Case)。
 
@@ -54,41 +56,32 @@
 - 任何縮寫必須是為大家所熟悉且認同的。
 
 - **避免** 於名稱中加入冗於、無意義的前餟或後綴詞。
-
+    ```csharp
+        // **BAD**
+        private int m_GetIndex;
+    ```
+ 
 
 2.2 Name Usage & Syntax
 -----------------------
-###2.2.1 Namespace###
+### 2.2.1 Namespace
 - **總是** 使用 帕斯卡命名法(Pascal Case) 為 命名空間 命名。
 
 - **總是** 使用 產品名稱 或 公司名稱 做為 根命名空間(Root Namespace) 的名稱。
 
 
-###2.2.2 Enum###
-- **總是** 使用 帕斯卡命名法(Pascal Case) 為 列舉 命名。
-
-- 嘗試使用 名詞 或 名詞片語 做為 列舉 的名稱。
-
-- **不要** 將 列舉 名稱加上 "Enum" 的後綴詞。
-    ```csharp
-        // **BAD**
-        public enum GameTypeEnum
-        {…}
-    ```
-
-
-###2.2.3 Interface###
+### 2.2.2 Interface
 - **總是** 使用 帕斯卡命名法(Pascal Case) 為 介面 命名，並加上前綴詞 "I"。
 
 
-###2.2.4 Class, Struct###
-- **總是** 使用 帕斯卡命名法(Pascal Case) 為 類別 及 結構 命名。
+### 2.2.3 Class, Struct, Enum
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 類別、結構 與 列舉 命名。
 
-- 嘗試使用 名詞 或 名詞片語 做為 類別 及 結構 的名稱。
+- **嘗試** 使用 名詞 或 名詞片語 做為 類別、結構 與 列舉 的名稱。
 
-- 嘗試使用 父類別 名稱此類別名稱的作為後綴詞。
-    + 為自訂的 特性 (Attribute) 類別名稱加上 "Attribute" 後綴詞。
-    + 為自訂的 控制器 (Controller) 類別名稱加上 "Controller" 後綴詞。
+- **嘗試** 使用 父類別名稱 做為 子類別名稱 的後綴詞 (結構亦同)。
+    + 為自訂的 特性 (Attribute) 類別名稱後加上 "Attribute"。
+    + 為自訂的 控制器 (Controller) 類別名稱後加上 "Controller"。
 
     ```csharp
         // **GOOD**
@@ -107,6 +100,14 @@
 
 - **總是** 為自訂的 擴充類別 (Extension Class) 名稱加上 "Extensions" 後綴詞。
 
+- **不要** 將 列舉 名稱加上 "Enum" 的後綴詞。
+    ```csharp
+        // **BAD**
+        public enum GameTypeEnum
+        {…}
+    ```
+
+
 - **總是** 使用 帕斯卡命名法(Pascal Case) 為非私有的 屬性 命名。
     + 避免使用 `private` 之屬性。
 
@@ -115,7 +116,7 @@
 
 - **總是** 使用 駝峰式命名法(Camel Case) 為 常數 及 靜態欄位 命名。
 
-- **避免** 屬性名稱中包含其所屬 類別 或 結構 的名稱。
+- **避免** 屬性名稱中包含其所屬 類別、結構 或 列舉 的名稱。
     ```csharp
         // **BAD**
         public class Customer {
@@ -139,7 +140,7 @@
     ```
 
 
-###2.3.5 Method###
+### 2.3.4 Method
 - **總是** 使用 帕斯卡命名法(Pascal Case) 為 函式 命名。
 
 - **總是** 為 擴充函式(Extension Method) 名稱加上 "Ext" 前綴詞。
@@ -170,7 +171,7 @@
 | Generic Type Parameter  | T**P**        |                      |            |             |           |
 | Interface               | I**P**        | I**P**               | I**P**     | I**P**      | I**P**    |
 | Method                  | **P**         | **P**                | **P**      | **P**       | **P**     |
-| Method Parameter        |               |                      |            |             | **c**     |
+| Parameter               |               |                      |            |             | **c**     |
 | Delegate                | **P**         | **P**                | **P**      | **P**       | **P**     |
 | Event                   | **P**         | **P**                | **P**      | **P**       | **P**     |
 | Property                | **P**         | **P**                | **P**      | **P**       | x         |
