@@ -58,7 +58,7 @@
 - **避免** 於名稱中加入冗於、無意義的前餟或後綴詞。
     ```csharp
         // **BAD**
-        private int m_GetIndex;
+        private int m_userIndex;
     ```
  
 
@@ -70,14 +70,12 @@
 - **總是** 使用 產品名稱 或 公司名稱 做為 根命名空間(Root Namespace) 的名稱。
 
 
-### 2.2.2 Interface
+### 2.2.2 Interface, Class, Struct, Enum
 - **總是** 使用 帕斯卡命名法(Pascal Case) 為 介面 命名，並加上前綴詞 "I"。
 
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 類別、結構、列舉 命名。
 
-### 2.2.3 Class, Struct, Enum
-- **總是** 使用 帕斯卡命名法(Pascal Case) 為 類別、結構 與 列舉 命名。
-
-- **嘗試** 使用 名詞 或 名詞片語 做為 類別、結構 與 列舉 的名稱。
+- **嘗試** 使用 名詞、名詞片語或形容詞片語 做為 類別、結構、列舉 的名稱。
 
 - **嘗試** 使用 父類別名稱 做為 子類別名稱 的後綴詞 (結構亦同)。
     + 為自訂的 特性 (Attribute) 類別名稱後加上 "Attribute"。
@@ -98,9 +96,9 @@
         {…}
     ```
 
-- **總是** 為自訂的 擴充類別 (Extension Class) 名稱加上 "Extensions" 後綴詞。
+- **總是** 為自訂的 擴充類別 (Extension Class) 名稱後加上 "Extensions"。
 
-- **不要** 將 列舉 名稱加上 "Enum" 的後綴詞。
+- **不要** 將 類別、結構、列舉 名稱後加上 "Class"、"Struct"、"Enum" 等詞。
     ```csharp
         // **BAD**
         public enum GameTypeEnum
@@ -116,7 +114,7 @@
 
 - **總是** 使用 駝峰式命名法(Camel Case) 為 常數 及 靜態欄位 命名。
 
-- **避免** 屬性名稱中包含其所屬 類別、結構 或 列舉 的名稱。
+- **避免** 屬性名稱中包含其所屬 類別、結構、列舉 的名稱。
     ```csharp
         // **BAD**
         public class Customer {
@@ -140,11 +138,12 @@
     ```
 
 
-### 2.3.4 Method
+### 2.3.3 Method
 - **總是** 使用 帕斯卡命名法(Pascal Case) 為 函式 命名。
 
-- **總是** 為 擴充函式(Extension Method) 名稱加上 "Ext" 前綴詞。
+- **嘗試** 使用 動詞 或 動詞-對象 這樣的組合 做為函式的命名。
 
+- **總是** 為 擴充函式(Extension Method) 名稱加上 "Ext" 前綴詞。
     ```csharp
         // **GOOD**
         public static string ExtToJson(this object)

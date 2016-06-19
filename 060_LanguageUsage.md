@@ -196,8 +196,8 @@
     - 系統會在使用完畢後自動叫用 `IDisposable.Dispose()` 函式。
 
 
-6.3 Generics & LINQ
--------------------
+6.3 Anonymous Methods, Lambda Expressions, LINQ & Generics
+----------------------------------------------------------
 - **總是** 優先考慮使用泛型的集合型別取代 一般集合型別 或 強集合型別。
 
 - **減少** 使用 `IEnumerable` 型別，除非能完全了解 延遲執行(Delayed Execution) 所產生的邊際效益。
@@ -221,6 +221,23 @@
     ```
 
 - **嘗試** 於確定 LINQ 已完成查詢後，使用 `ToArray()` 或 `ToList()` 函式強制執行查詢。 
+
+- **總是** 使用 Lambda 表達式(Lambda Expressions) 取代 匿名函式(Anonymous Methods)。
+    ```csharp
+        // **BAD**
+        // Anonymous method:
+        var hasVipCustomer = customers.Any(delegate(Customer customer)
+        {
+            return customer.Type == CustomerType.Vip;
+        });
+        
+        // **GOOD**
+        // Lambda expression:
+        var hasVipCustomer = customers.Any(customer => customer.Type == CustomerType.Vip);
+    ```
+
+- **總是** 使用 `collection.Any()` 取代 `collection.Count() > 0` 來檢查集合是否是空的。
+    + 若有引用 `AirCast.Core.dll` ，則嘗試使用 `collection.ExtIsNullOrEmpty()` 代替。
 
 
 6.4 Flow Control
@@ -444,9 +461,6 @@ Events
 Anonymous Types
 ---------------
 
-
-Anonymous Methods, Delegates & Lambda Expressions
--------------------------------------------------
 
 
 
