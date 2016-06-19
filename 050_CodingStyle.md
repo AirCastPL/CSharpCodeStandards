@@ -1,7 +1,7 @@
 5. Coding Style
 ===============
-於程式開發者間，編寫風格是最容易產生歧異與爭執的。各開發者各有所好，鮮少有相同的。但一致性的排版、撰寫格式及程式碼組織是建立可維護性程式碼的關鍵。  
-以下的章節將提出統一遵循的方針，來實作具可讀性、簡潔以及一致性的程式碼，以簡化維護作業。
+於程式開發者間，編寫風格是最容易產生歧異與爭執的。開發者各有所好，鮮少相同的。但一致性的程式碼排版、格式及區塊組織是建立可維護性程式碼的關鍵。  
+以下章節將提出統一遵循的方針，來實作具可讀性、簡潔以及一致性的程式碼，以簡化維護作業。
 
 5.1 Formatting
 --------------
@@ -20,10 +20,15 @@
 - **總是** 在空行加入大括號 ("`{`"、"`}`")。
     + 除 自動屬性 (Auto-Implemented Properties) 外。
     + 除 集合初始化 (Collection initializers) 外。
+    + 除 字串插值 (String Interpolation) 外。
 
-- **總是** 將大括號 ("`{`"、"`}`") 中程式碼區塊縮排。
+- **總是** 將大括號 ("`{`"、"`}`") 中的程式碼區塊縮排。
 
-- **總是** 在條件判斷式的區段中加入大括號 ("`{`"、"`}`")。
+- **總是** 在 `if`、`switch` 等 選擇陳述式(Selection Statements) 的區段中加入大括號 ("`{`"、"`}`")。
+
+- **總是** 在 `for`、`foreach`、`while` 等 反覆運算陳述式(Iteration Statements) 的區段中加入大括號 ("`{`"、"`}`")。
+
+- **總是** 在 `try`、`catch`、`finally` 等 例外狀況處理陳述式(Exception Handling Statements) 的區段中加入大括號 ("`{`"、"`}`")。
 
 - **總是** 使用 `var` 來宣告變數。
     + 除 編譯器無法自動推定型別 外。
@@ -60,9 +65,11 @@
     ```
 
 
+- **總是** 將 `using` 指示詞(Directive) 置於檔案的最上面。
+
 - **總是** 依據下列順序排序 `using` 指示詞(Directive)：
     1. .NET Framework 的命名空間
-    2. 其他的命名空間
+    2. 其他或自訂的命名空間
     3. 命名空間或類別的別稱
 
     ```csharp
@@ -98,7 +105,7 @@
     5. `private`
 
 - **避免** 使用 `#region`。
-    + 減少取消使用 `#region` 時造成的程式碼差異過大。
+    + 若取消使用 `#region` 時，可能會造成程式碼差異過大。
     + Visual Studio 預設為縮起內容，不好閱讀。
     + 自動產生之程式碼除外。
 
@@ -125,6 +132,7 @@
         public DateTime BirthDate {get; set;}
     ```
 
+
 - **總是** 將用於 Assembly、Type、Method、Field、Parameter 的 特性(Attribute) 放置於與宣告對象不同的一行。
     ```csharp
         // **GOOD**
@@ -145,11 +153,26 @@
 
 - **總是** 將用於 參數(Parameter) 的 特性(Attribute) 放置於與其宣告對象同一行。
     ```csharp
+        // **BAD**
+        public int GetMember(
+            [NotNull]
+            string name)
+        {…}
+
         // **GOOD**
         public int GetMember([NotNull]string name)
         {…}
     ```
     ```csharp
+        // **BAD**
+        public IEnumerable<User> UserList(
+            [WithKey(nameof(User))]
+            IProvider provider,
+            [WithKey(nameof(User))]
+            IFilter filter,
+            ILogger logger)
+        {…}
+
         // **GOOD**
         public IEnumerable<User> UserList(
             [WithKey(nameof(User))]IProvider provider,
@@ -176,14 +199,15 @@
     ```
 
 
-- 總是對非私用的 宣告項目(Declarations) 加上 註解區塊(Comment-blocks)。
+- **總是** 對非私用的 宣告項目(Declarations) 加上 註解區塊(Comment-blocks)。
     + 私用的宣告項目也可以附加註解區塊。
 
 - **總是** 於 註解區塊(Comment-blocks) 中，使用 `<summary>`、`<param>`、`<returns>` 和 `<exception>` 註解區段，若所說明的程式碼包含這些部分的話。
     + 並盡可能使用 `<see cref="member"/>` 與 `<seeAlso cref="member"/>`。
 
-- **總是** 於 註解區塊(Comment-blocks) 中，為在註解中添加的 程式碼 或 其他嵌入標記 使用 `CDATA` 標籤以避免編碼問題。
+- **總是** 於 註解區塊(Comment-blocks) 中，為在註解中添加的 程式碼 或 其他嵌入標記 時使用 `CDATA` 標籤，以避免編碼問題。
     ```csharp
+        // **GOOD**
         /// <example>
         /// Add the following key to the “appSettings” section of your config:
         /// <code><![CDATA[
@@ -203,5 +227,4 @@ Excluded
 - ~~If in doubt, always err on the side of clarity and consistency.~~
 - ~~Only use C# comment-blocks for documenting the API.~~
 - ~~Do not “flowerbox” comment blocks.~~
-- ~~Place namespace “using” statements together at the top of file. Group .NET namespaces above custom namespaces.~~
 - ~~Segregate interface Implementation by using #region statements.~~

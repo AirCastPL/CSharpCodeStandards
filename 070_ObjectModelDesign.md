@@ -1,4 +1,4 @@
-6. Object Model Design
+7. Object Model Design
 ======================
 
 General
@@ -85,6 +85,12 @@ General
 
 - 經常重構！
 
+
+
+
+
+Enum 
+Add the FlagsAttribute to bit-mask multiple options. 
 
 
 Attributes

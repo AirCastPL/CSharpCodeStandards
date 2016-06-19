@@ -33,7 +33,8 @@
     C# 以關鍵字 `public`、`protected`、`internal`、`private` 及 `protected internal` 定義 型別(Types) 與 成員(Members) 間的存取性，這些關鍵字稱為存取修飾子 (Access Modifier)。  
     在 C# 中，類別(Classes) 及其大部分的成員其存取修飾子預設值為 `private`，但 介面(Interfaces) 和 列舉(Enums) 則預設為 `public`。
 
-    Reference: [Access Modifiers, C# Programming Guide, MSDN](https://msdn.microsoft.com/en-us/library/ms173121.aspx)
+    Reference: [Access Modifiers, C# Programming Guide, MSDN](https://msdn.microsoft.com/en-us/library/ms173121.aspx)  
+    Reference: [Accessibility Levels, C# Reference, MSDN](https://msdn.microsoft.com/en-us/library/ba0a1yw2.aspx)
 
 
 - **識別子 (Identifier)**  

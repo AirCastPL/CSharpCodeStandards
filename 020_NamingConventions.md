@@ -59,13 +59,13 @@
 2.2 Name Usage & Syntax
 -----------------------
 ###2.2.1 Namespace###
-- 使用 帕斯卡命名法(Pascal Case) 為 命名空間 命名。
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 命名空間 命名。
 
-- 使用 產品名稱 或 公司名稱 做為 根命名空間(Root Namespace) 的名稱。
+- **總是** 使用 產品名稱 或 公司名稱 做為 根命名空間(Root Namespace) 的名稱。
 
 
 ###2.2.2 Enum###
-- 使用 帕斯卡命名法(Pascal Case) 為 列舉 命名。
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 列舉 命名。
 
 - 嘗試使用 名詞 或 名詞片語 做為 列舉 的名稱。
 
@@ -78,16 +78,15 @@
 
 
 ###2.2.3 Interface###
-- 使用 帕斯卡命名法(Pascal Case) 為 介面 命名，並加上前綴詞 "I"。
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 介面 命名，並加上前綴詞 "I"。
 
 
 ###2.2.4 Class, Struct###
-- 使用 帕斯卡命名法(Pascal Case) 為 類別 及 結構 命名。
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 類別 及 結構 命名。
 
 - 嘗試使用 名詞 或 名詞片語 做為 類別 及 結構 的名稱。
 
 - 嘗試使用 父類別 名稱此類別名稱的作為後綴詞。
-    + 為自訂的 擴充類別 (Extension Class) 名稱加上 "Extensions" 後綴詞。
     + 為自訂的 特性 (Attribute) 類別名稱加上 "Attribute" 後綴詞。
     + 為自訂的 控制器 (Controller) 類別名稱加上 "Controller" 後綴詞。
 
@@ -103,17 +102,18 @@
         {…}
         
         private struct InsertParameters : IQueryParameters
-        {…} 
+        {…}
     ```
 
+- **總是** 為自訂的 擴充類別 (Extension Class) 名稱加上 "Extensions" 後綴詞。
 
-- 使用 帕斯卡命名法(Pascal Case) 為非私有的 屬性 命名。
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為非私有的 屬性 命名。
     + 避免使用 `private` 之屬性。
 
-- 使用 駝峰式命名法(Camel Case) 為私有 欄位 命名，並加上前綴詞 "_"。
+- **總是** 使用 駝峰式命名法(Camel Case) 為私有 欄位 命名，並加上前綴詞 "_"。
     + 避免使用非 `private` 之欄位。
 
-- 使用 駝峰式命名法(Camel Case) 為 常數 及 靜態欄位 命名。
+- **總是** 使用 駝峰式命名法(Camel Case) 為 常數 及 靜態欄位 命名。
 
 - **避免** 屬性名稱中包含其所屬 類別 或 結構 的名稱。
     ```csharp
@@ -136,6 +136,18 @@
 
         // **GOOD**
         public bool HasEnoughMoney => user.GetMoney() >= cart.GetTotalMoney();
+    ```
+
+
+###2.3.5 Method###
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 函式 命名。
+
+- **總是** 為 擴充函式(Extension Method) 名稱加上 "Ext" 前綴詞。
+
+    ```csharp
+        // **GOOD**
+        public static string ExtToJson(this object)
+        {…}
     ```
 
 

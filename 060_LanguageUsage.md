@@ -1,11 +1,12 @@
 6. Language Usage
 ===============
+以下章節將討論 C# 語言的特性應該如何有效的使用，限制部分可能被誤用的功能。而合理的功能限縮使用也是提高程式碼一致性的方法之一。
 
 6.1 General
 -----------
 - **不要** 省略**存取修飾子 (Access Modifiers)**。明確使用適當的存取修飾子來定義所有的識別子(Identifiers)其存取性，而非使用預設模式。
-    - 在 class 與在 interface 等之預設值皆不同。
-    - 明確定義，減少人為誤判。
+    + 在 class 與在 interface 等之預設值皆不同。
+    + 明確定義，減少人為誤判。
     
     ```csharp
         // **BAD**
@@ -27,24 +28,29 @@
 
 
 - **避免** 使用 `unsafe` 程式碼，若因特別因素考量使用，則盡可能獨立放置一特別專案中。
-    - 減少 Memory Leak 或 Buffer Overflow 可能。
-    - 獨立專案可以區分權責，當有錯誤發生時容易追查。
-    - 通常只有底層才會需要使用 `unsafe` 程式碼。
+    + 減少 Memory Leak 或 Buffer Overflow 可能。
+    + 獨立專案可以區分權責，當有錯誤發生時容易追查。
+    + 通常只有底層才會需要使用 `unsafe` 程式碼。
 
 - **避免** 組件(Assemblies) 交互參考。
-    - 錯誤的相依性。
-    - 混亂的建置順序。
+    + 錯誤的相依性。
+    + 混亂的建置順序。
+
+- **不要** 使用 `using static` 指示詞。
+    + 除 用於避免 擴充方法(Extension Method) 衝突 外。
 
 
 6.2 Variables & Types
 ---------------------
+- **嘗試** 使用 `this` 和 `base` 等 存取關鍵字(Access Keywords) 於型別中叫用成員，而非直接叫用。
+
 - **嘗試** 於定義變數時一併初始化它 (給定值)。
 
 - **總是** 選擇使用必要的、最簡單的資料型別、清單或物件。
-    - 最小化需求。
+    + 最小化需求。
 
 - **嘗試** 於定義 識別子(Identifiers) 型別時，使用 介面型別 代取 實際型別。
-    - 最大化彈性。
+    + 最大化彈性。
     
     ```csharp
         // **BAD**
@@ -56,8 +62,8 @@
 
 
 - **總是** 使用 C# 內建型別別稱取代 .NET 型別。
-    - 減少記憶型別。
-    - 減少人為錯誤。
+    + 減少記憶型別。
+    + 減少人為錯誤。
     
     ```csharp
         // **BAD**
@@ -76,45 +82,55 @@
     ```
 
 
-- 嘗試 優先選擇 `int` 型別來存取任何非分數的數值 (且其定義域需與 `int` 數值相符)，即使為一正整數。
+- **嘗試** 優先選擇 `int` 型別來存取任何非分數的數值 (且其定義域需與 `int` 數值相符)，即使為一正整數。
     + 當數值可能會大於 `int` 的定義域時，使用 `long` 型別。
 
-- 嘗試 優先選擇 `double` 型別來存取分數數值，以確保計算小數點時的精度。
+- **嘗試** 優先選擇 `double` 型別來存取分數數值，以確保計算小數點時的精度。
 
 - **避免** 使用 `float` 型別，除非你完全理解其計算方式與影響。
     + 而使用 `float` 型別存取的變數，將不會符合 `double` 及 `decimal` 型別。
 
-- 嘗試 使用 `decimal` 型別來存取須四捨五入至固定精度位數的分數值。常用於金錢方面。
+- **嘗試** 使用 `decimal` 型別來存取須四捨五入至固定精度位數的分數值。常用於金錢方面。
 
 - **避免** 使用 `sbyte`、`short`、`uint`、`ulong` 等型別。
     + 除 為叫用原生函式庫，與其相容 外。
 
-- Avoid specifying the type for an enum - use the default of int unless you have an explicit need for long (very uncommon).
-- 避免在enum使用特殊型別，使用預設的int，除非你必須使用long
+- **避免** 將 列舉(Enum) 設為特殊的型別，使用預設的 int 型別。
+    + 不需特別於程式中指定 int 型別。
+    + 除 特殊需求使用到 long 型別 外。
 
-- **避免** 使用 魔術數字(Magic Number)。使用 常數 (Constant) 或 列舉 (Enum) 取代。
+- **避免** 使用 魔術數字(Magic Number)。
+    + 使用 常數(Constants) 或 列舉(Enums) 取代。
 
-- Avoid declaring string literals inline. Instead use Resources, Constants, Configuration Files, Registry or other data sources.
-- 避免在函式中宣告內嵌式字串變數，使用Resource、Constants、Configuration Files、Registry 或其他data source
+- **減少** 宣告字串變數時直接給定字串內容。
+    + 使用 資源檔(Resource)、常數(Constants)、設定檔(Configuration Files)、註冊表(Registry) 或由其他資料來源取得。
 
-- Declare readonly or static readonly variables instead of constants for complex types.
-- 使用readonly或static readonly來宣告複雜的型別
+- 使用 `readonly` 或 `static readonly` 欄位來宣告較複雜的資料型別，替代常數。
+    + 常數(Constants) 無法使用 `new` 初始化物件。
+    + `readonly` 或 `static readonly` 欄位所儲存的資料是執行時期的定值。
 
-- Only declare constants for simple types.
-- 使用Constants來宣告簡單型別
+- 使用 常數(Constants) 來宣告簡單的資料型別。
+    + 常數 是一種欄位，其值是在編譯時期設定並且不能變更。
+    + 常數 可提供有意義的名稱，用來取代意義不明的魔術數字或其他定值。
 
-- Avoid direct casts. Instead, use the “as” operator and check for null.
-- 避免直接轉型，使用 as 來轉型，並檢查是否為null
+- 使用 `as` 運算子(Operator) 取代直接轉型，並檢查結果是否為 `null`。
     ```csharp
-        // Example
+        // **BAD**
         object dataObject = LoadData();
-        DataSet ds = dataObject as DataSet;
-        if(ds != null)
+        var ds = (DataSet)dataObject;
+        …
+
+        // **GOOD**
+        object dataObject = LoadData();
+        var ds = dataObject as DataSet;
+        if (ds != null)
         {…}
     ```
 
 
-- **避免** 實值型別發生 boxing 與 unboxing。
+- **避免** 實值型別發生 Boxing 與 Unboxing。
+    + 嘗試使用 泛型 替代 `object` 型別的使用。
+
     ```csharp
         // **BAD**
         int count = 1;
@@ -123,113 +139,93 @@
     ```
 
 
+- 使用 `string.IsNullOrEmpty(str)` 或 `str.Length == 0` 來檢查字串是否有值。
+    + **不要** 使用 `str == string.Empty` 來檢查。
 
-- Try to use the “@” prefix for string literals instead of escaped strings.
-- 在字串變數中，使用@取代逃逸字元
+- 嘗試 於 字串字面量(String Literals) 前加上 "`@`" 符號，來代取使用逃逸字元。
+    + 關於 C# 的逃逸字元可參考：[Escaping in C#: characters, strings, string formats, keywords, identifiers](http://www.codeproject.com/Articles/371232/Escaping-in-Csharp-characters-strings-string-forma)。
 
-- 使用 `string.Format()` 與 `StringBulider` 來串接字串。
+    ```csharp
+        // **BAD**
+        var path1    = "\\\\server\\share\\file.txt";  // \\server\share\file.txt
+        var message1 = "Joe said \"Hello\" to me";     // Joe said "Hello" to me
+
+        // **GOOD**
+        var path2    = @"\\server\share\file.txt";     // \\server\share\file.txt
+        var message2 = @"Joe said ""Hello"" to me";    // Joe said "Hello" to me
+    ```
+
+
+- 使用 字串插值(String Interpolation)、`string.Format()` 和 `StringBulider` 來串接字串。
   
-- 使用 `string.IsNullOrEmpty()` 來檢查字串是否有值。
+- **避免** 在 字串插值(String Interpolation) 中使用運算式或叫用函式。
+    + 可使用變數、屬性、欄位。
 
-- 避免字串隱性配置，使用String.Compare() 來判別大小寫    
-- Avoid hidden string allocations within a loop. Use `string.Compare()` for case-sensitive
-    
     ```csharp
         // **BAD**
-        var id = -1;
-        var name = “lance hunt”;
-        for(int i=0; i < customerList.Count; i++)
-        {
-            if(customerList[i].Name. ToLower() == name)
-            {
-                id = customerList[i].ID;
-            }
-        }
-        
+        var message = $"{webManager.GetPage(pageIndex).Name} throw an exception.";
+
         // **GOOD**
-        var id = -1;
-        var name = “lance hunt”;
-        for(int i = 0; i < customerList.Count; i++)
-        {
-            // The “ignoreCase = true” argument performs a
-            // case-insensitive compare without new allocation.
-            if(string.Compare(customerList[i].Name, name,  true) == 0)
-            {
-                id = customerList[i].ID;
-            }
-        }
+        var page = webManager.GetPage(pageIndex);
+        var message = $"{page.Name} throw an exception.";
     ```
 
+- **嘗試** 使用 `string.Compare()` 與 `string.Equals()` 來比對兩字串是否相等。
+    + 可消除大小寫之差異。
+    + **避免** 使用 `==` 運算子(Operator) 來比對字串。
 
-
-
-
-Enum 
-Add the FlagsAttribute to bit-mask multiple options. 
-
-
-
-
-
-
-Generics
---------
-- Always prefer C# Generic collection types over standard or strong-typed collections.
-- 優先考慮泛型類別
-
-
-Inferring Types
----------------
-
-Dynamic Types
--------------
-
-Flow Control
-------------
-
-- Avoid invoking methods within a conditional expression.
-- 條件判斷式避免使用Methods
-
-- Avoid creating recursive methods. Use loops or nested loops instead.
-- 避免使用遞迴，使用迴圈
-
-- Avoid using foreach to iterate over immutable value-type collections. E.g. String arrays.
-- 避免使用foreach在實值型別的集合
-
-- Do not modify enumerated items within a foreach statement.
-- 在foreach陳述式中，不要修改列舉的項目
-
-- Use the ternary conditional operator only for trivial conditions. Avoid complex or compound ternary operations.
-- 使用三元運算式，但是避免綜合多個三元運算式使用
-   
-    ```csharp
-        // Example
-        var result = isValid ? 9 : 4;
-    ```
-
-
-- Avoid evaluating Boolean conditions against true or false.
-- 避免解析true 或 false 在if條件式
-   
     ```csharp
         // **BAD**
-        if (isValid == true)
+        if (str1 == str2)
         {…}
-        
+
         // **GOOD**
-        if (isValid)
+        if (string.Compare(str1, str2, true) == 0)
+        {…}
+
+        // **GOOD**
+        if (string.Equals(str1, str2, CultureInfo.InvariantCulture))
+        {…}
+
+        // **GOOD**
+        if (str1.Equals(str2, CultureInfo.InvariantCulture))
         {…}
     ```
 
+- **嘗試** 使用 `using` 陳述式 來宣告繼承 `IDisposable` 介面的變數。
+    - 系統會在使用完畢後自動叫用 `IDisposable.Dispose()` 函式。
 
-- Avoid assignment within conditional statements.
-- 避免在if條件式中給予變數值
 
+6.3 Generics & LINQ
+-------------------
+- **總是** 優先考慮使用泛型的集合型別取代 一般集合型別 或 強集合型別。
+
+- **減少** 使用 `IEnumerable` 型別，除非能完全了解 延遲執行(Delayed Execution) 所產生的邊際效益。
+    + 使用 `T[]` 或 `IList<T>` 取代。
+
+- **不要** 使用 LINQ 的 查詢語法(Query Syntax)，使用 函式語法(Method Syntax) 代替。
     ```csharp
-        // Example:
-        if((i=2)==2) {…}
+        // **BAD**
+        // Query syntax:
+        var numQuery1 = 
+            from num in numbers
+            where num % 2 == 0
+            orderby num
+            select num;
+        
+        // **GOOD**
+        // Method syntax:
+        var numQuery2 = numbers
+            .Where(num => num % 2 == 0)
+            .OrderBy(n => n);
     ```
 
+- **嘗試** 於確定 LINQ 已完成查詢後，使用 `ToArray()` 或 `ToList()` 函式強制執行查詢。 
+
+
+6.4 Flow Control
+----------------
+- **避免** 於 選擇陳述式(Selection Statements) 及 反覆運算陳述式(Iteration Statements) 中使用複雜的 運算式 和 函式叫用。
 
 - Avoid compound conditional expressions – use Boolean variables to split parts into multiple manageable expressions.
 - 避免在if條件式使用太複雜的判斷式，使用boolean變數，將他們分成好管理的陳述式
@@ -248,25 +244,57 @@ Flow Control
     ```
 
 
-- Avoid explicit Boolean tests in conditionals.
+- **不要** 於 選擇陳述式(Selection Statements) 及 反覆運算陳述式(Iteration Statements) 中使用 LINQ 查詢表達式(Query Expression)。
+
+- **避免** 使用遞迴，使用迴圈或巢狀迴圈代替。
+
+- **不要** 在 `foreach` 區段中 中修改集合內容，比如新增或刪除項目。
+
+- **不要** 串接多個 三元運算式(Ternary Conditional Operator)。
+    ```csharp
+        // **BAD**
+        var result = isValid1 ? isValid2 ? 1 : isValid3 ? 2 : 3 : 4;
+    ```
+
+
+- **不要** 於陳述式中 將一 `bool` 型別的變數或運算式結果 再與 `true`、`false` 比對。 
+    ```csharp
+        // **BAD**
+        if (isValid == true)
+        {…}
+        
+        // **GOOD**
+        if (isValid)
+        {…}
+    ```
    
     ```csharp
         // **BAD**
-        if(IsValid == true)
-        {…};
+        if ((age > 10) == true)
+        {…}
         
         // **GOOD**
-        if(IsValid)
+        if (age > 10)
         {…}
     ```
 
-- Only use switch/case statements for simple operations with parallel conditional logic.
-- 只有在簡單的運算中考慮使用switch/case
 
-- Prefer nested if/else over switch/case for short conditional sequences and complex conditions.
-- 優先考慮使用 if else 條件式
+- **避免** 在 選擇陳述式(Selection Statements) 中指定數值給變數。
+    ```csharp
+        // **BAD**
+        if ((i = 2) + j == 2)
+        {…}
+    ```
+    ```csharp
+        // **BAD**
+        switch (type = User.GetType())
+        {…}
+    ```
 
-- Prefer polymorphism over switch/case to encapsulate and delegate complex operations.
+
+- 面對 複雜的判斷式 或 多個簡短的判斷式 應優先考慮使用 `if`/`else` 而非 `switch`/`case`。
+
+- 當使用 `switch`/`case` 時，應考量是否可能重構為使用多型來封裝與委派運算。
 
 
 Exceptions
@@ -413,8 +441,8 @@ Events
 - 使用現存的CancelEventArgs來讓事件訂閱者控制事件
 
 
-Anonymous Classes
------------------
+Anonymous Types
+---------------
 
 
 Anonymous Methods, Delegates & Lambda Expressions
@@ -455,13 +483,6 @@ Threading
     ```
 
 
-Task Parallel Library
----------------------
-
-
-Reflection
-----------
-
 Testing
 -------
 
@@ -498,3 +519,5 @@ Excluded
 - ~~Floating point values should include at least one digit before the decimal place and one after.~~
 - ~~Never concatenate strings inside a loop.~~
 - ~~Always explicitly initialize arrays of reference types using a for loop.~~
+- ~~Avoid using foreach to iterate over immutable value-type collections. E.g. String arrays.~~
+- ~~Only use switch/case statements for simple operations with parallel conditional logic.~~
