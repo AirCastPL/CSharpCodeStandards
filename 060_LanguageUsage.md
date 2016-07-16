@@ -382,19 +382,19 @@ Exceptions
 
     3. **總是** 實作 例外建構式設計模式(Exception Constructor Pattern)。
 
-    ```csharp
-        public MyCustomException();
-        public MyCustomException(string message);
-        public MyCustomException(string message, Exception innerException);
-    ```
+        ```csharp
+            public MyCustomException();
+            public MyCustomException(string message);
+            public MyCustomException(string message, Exception innerException);
+        ```
 
     4. **總是** 加入 `SerializableAttribute` 修飾類別。
 
     5. **總是** 實作反序列化的建構式(Deserialization Constructor)。
 
-    ```csharp
-        protected MyCustomException(SerializationInfo info, StreamingContext contxt);
-    ```
+        ```csharp
+            protected MyCustomException(SerializationInfo info, StreamingContext contxt);
+        ```
 
 
 - Always set the appropriate HResult value on custom exception classes.
