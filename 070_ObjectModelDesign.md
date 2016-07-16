@@ -12,8 +12,7 @@ General
 - **避免** 濫用 `public` 修飾詞於型別或成員定義。對於一個公開的 API 來說，通常會少於10%。
     + 模型(Model) 類別例外。
 
-- Consider using internal or private access modifiers for types and members unless you intend to support them as part of a public API.
-- 優先考慮使用 `internal` 或 `private` 修飾詞。
+- 優先考慮使用 `internal` 或 `private` 修飾詞於型別或成員定義，除非你想開放他們成為公開 API 的一部分。
 
 - **不要** 在 `sealed` 類別中使用 `protected` 修飾詞。除非是由父類別繼承來的。
 
@@ -23,11 +22,10 @@ General
 
 - **不要** 使用 `new` 來隱藏衍生類別的成員。
 
-- Only use the “base” keyword when invoking a base class constructor or base implementation within an override.
-- 只在建構式或覆寫時，使用”base”關鍵字。
+- 只在叫用 父類別建構式 或 父類別實作 時，使用 `base` 關鍵字。
 
-- Consider using method overloading instead of the params attribute (but be careful not to break CLS Compliance of your API’s).
-- 考慮使用方法多載取代”params”。
+- ~~Consider using method overloading instead of the params attribute (but be careful not to break CLS Compliance of your API’s).~~
+- ~~考慮使用方法多載取代”params”。~~
 
 - Always validate an enumeration variable or parameter value before consuming it. They may contain any value that the underlying Enum type (default int) supports.
 - 在使用列舉變數或參數前，必須先驗證列舉是否定義。有可能是Enum的基底的型別(預設是int)。
@@ -39,20 +37,22 @@ General
         {…}
         }
 
-- 考慮覆寫 struct 的Equals()方法。
+- 考慮覆寫 結構 的 `Equals()` 函式。
 
-- 當覆寫Equals()方法時，必須覆寫Equality Operator (==)。
+- 當覆寫 `Equals()` 函式時，必須覆寫 等號運算子(Equality Operator, ==)。
 
-- 當覆寫ToString()方法時，必須覆寫String Implicit Operator。
+- 當覆寫 `ToString()` 函式時，必須覆寫 字串隱性轉型運算子(String Implicit Operator)。
 
-- 當類別有提供Close() or Dispose()時，請呼叫它。
+- 當類別有提供 `Close()` / `Dispose()` 時，請使用它。
 
-- Wrap instantiation of IDisposable objects with a “using” statement to ensure that Dispose() is automatically called.
-- 用”using”來包裝IDisposable介面來確保Dispose()會被自動呼叫。
+- 使用 `using` 陳述式來初始、設定一實作 `IDisposable` 介面的物件，以確保物件使用完畢後 `Dispose()` 函式會被自動呼叫。
 
-        // Example
-        using(SqlConnection cn = new SqlConnection(_connectionString))
+    ```csharp
+        // **GOOD**
+        using(var conn = new SqlConnection(this._connectionString))
         {…}
+    ```
+
 
 - 當類別有參考外部資源時，實作 `IDisposable` 介面。
 
