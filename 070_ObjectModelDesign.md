@@ -79,6 +79,21 @@ General
 
 - 對於需要多選(或位元遮罩運算) 的 列舉(Enum)，加上 `FlagsAttribute` 特性修飾，並指定每個成員的數值。
 
+    ```csharp
+        // **GOOD**
+        [Flags]
+        public enum FontStyle 
+        {
+            None = 0,
+            Bold = 1 << 0,
+            Italic = 1 << 1,
+            shadow = 1 << 2,
+            Underline = 1 << 3,
+            Strikethrough = 1 << 4
+        }
+    ```
+
+
 - 經常重構！
 
 
