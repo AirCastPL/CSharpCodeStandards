@@ -15,7 +15,7 @@
     - 版本編訂規範
 - [x] [5. 程式碼編寫風格 (Coding Style)](050_CodingStyle.md)
     - 程式碼排版、結構、格式、區塊規範
-- [ ] [6. 語言使用規範 (Language Usage)](060_LanguageUsage.md)
+- [x] [6. 語言使用規範 (Language Usage)](060_LanguageUsage.md)
     - 語言使用限制、規範
 - [ ] [7. 物件模型設計 (Object Model Design)](070_ObjectModelDesign.md)
     - 物件設計規範

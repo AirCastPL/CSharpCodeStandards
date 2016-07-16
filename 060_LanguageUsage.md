@@ -396,52 +396,38 @@ Exceptions
             protected MyCustomException(SerializationInfo info, StreamingContext contxt);
         ```
 
+    7. **總是** 給定適當的 `HResult` 值。
 
-- Always set the appropriate HResult value on custom exception classes.
-- 客制的Exception請給定適當的HResult
+    8. **總是** 複寫(override) `Message` 屬性、`ToString()` 函式 和 隱性字串型別轉型，使自訂屬性資訊能涵蓋在其中。
 
-    (Note: the ApplicationException HResult = -2146232832)
+    9. **總是** 修改 反序列化的建構式(Deserialization Constructor)，使反序列化時重新取得自訂屬性。
 
--  When defining custom exception classes that contain additional properties:
-- 當定義客制Excepiton時，需注意以下屬性
-    a. Always override the Message property, ToString() method and the implicit operator string to include custom property values.
-    a. override Message(property) ToString()(method) implicit operator string
+    10. **總是** 覆寫 `GetObjectData()` 函式，加入自訂屬性至序列化集合中。
 
-    b. Always modify the deserialization constructor to retrieve custom property values.
-    b. 必須修改反序例化的建構式，這樣才能取回客制的屬性值
-
-    c. Always override the GetObjectData(…) method to add custom properties to the serialization collection.
-    c. 必須覆寫GetObjectData(…)加入客制的屬性到序列化的集合
-
-    ```csharp
-        public override void GetObjectData(SerializationInfo info,
-        StreamingContext context)
-        {
-            base.GetObjectData (info, context);
-            info.AddValue("MyValue", _myValue);
-        }
-    ```
+        ```csharp
+            public override void GetObjectData(
+                SerializationInfo info,
+                StreamingContext context)
+            {
+                base.GetObjectData (info, context);
+                info.AddValue("MyValue", this._myValue);
+            }
+        ```
 
 
 Events
 ------
-- Always check Event & Delegate instances for null before invoking.
-- 在執行前先確認實體是否是null
+- **總是** 於執行前先確認 事件(Event) 與 託管(Delegate) 之實體是否為 null。
 
-- Use the default EventHandler and EventArgs for most simple events.
-- 大多數簡單情況，使用預設的EventHandler/EventArgs
+- 預設的 `EventHandler`、`EventArgs` 已足夠應用於在大多數的情況下。
 
-- Always derive a custom EventArgs class to provide additional data.
-- 繼承EventArgs來客制額外需要的資料
+- **總是** 繼承 `EventArgs` 類別來提供額外所需要的資料。
 
-- Use the existing CancelEventArgs class to allow the event subscriber to control events.
-- 使用現存的CancelEventArgs來讓事件訂閱者控制事件
+- 使用 `CancelEventArgs` 類別來讓 事件訂閱者(Event Subscriber) 控制事件。
 
 
 Anonymous Types
 ---------------
-
-
 
 
 The yield statement
@@ -450,62 +436,53 @@ The yield statement
 
 Threading
 ---------
-- Always use the “lock” keyword instead of the Monitor type.
-- 使用“lock”取代Monitor類別
+- **總是** 使用 `lock` 取代 `Monitor` 類別。
 
-- Only lock on a private or private static object.
-- 只lock private 或private static物件
+- 只鎖定 `private` 或 `private static` 的物件。
 
     ```csharp
-        Example: lock(myVariable);
+        private object _locker = new object();
+
+        …
+
+        lock(this._locker)
+        {…}
     ```
 
 
-- Avoid locking on a Type.
-- 避免lock Type
+- **避免** 鎖定一個 `Type` 物件。
 
     ```csharp
-        Example: lock(typeof(MyClass));
+        // **BAD**
+        lock(typeof(MyClass));
     ```
 
-
-- Avoid locking on the current object instance.
-- 避免lock目前的實體
+- **避免** 鎖定目前的實體。
 
     ```csharp
-        Example: lock(this);
+        // **BAD**
+        lock(this);
     ```
 
 
 Testing
 -------
+- **總是** 在驗證時，將 預期值 作為第一個參數，實際值 次之。而多數主流的測試函式庫也是如此定義。
 
+    ```csharp
+        // Microsoft.VisualStudio.TestTools.UnitTesting.Assert
+        public static void AreEqual<T>(T expected, T actual)
+    ```
 
-```csharp
-    // Microsoft.VisualStudio.TestTools.UnitTesting.Assert
-    public static void AreEqual<T>(T expected, T actual)
-```
+    ```csharp
+        // NUnit.Framework.Assert
+        public static void AreEqual(object expected, object actual)
+    ```
 
-```csharp
-    // NUnit.Framework.Assert
-    public static void AreEqual(object expected, object actual)
-```
-
-```csharp
-    // Xunit.Assert
-    public static void Equal<T>(T expected, T actual)
-```
-
-
-
-
-
-
-
-
-
-
-
+    ```csharp
+        // Xunit.Assert
+        public static void Equal<T>(T expected, T actual)
+    ```
 
 
 Excluded
