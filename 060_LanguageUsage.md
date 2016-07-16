@@ -139,10 +139,10 @@
     ```
 
 
-- 使用 `string.IsNullOrEmpty(str)` 或 `str.Length == 0` 來檢查字串是否有值。
-    + **不要** 使用 `str == string.Empty` 來檢查。
+- 使用 `string.IsNullOrEmpty(str)` 或 `str.Length == 0` 來檢查任意字串 `str` 是否有值。
+    + **避免** 使用 `str == string.Empty` 來檢查。
 
-- 嘗試 於 字串字面量(String Literals) 前加上 "`@`" 符號，來代取使用逃逸字元。
+- **嘗試** 於 字串字面量(String Literals) 前加上 "`@`" 符號來代取使用逃逸字元。
     + 關於 C# 的逃逸字元可參考：[Escaping in C#: characters, strings, string formats, keywords, identifiers](http://www.codeproject.com/Articles/371232/Escaping-in-Csharp-characters-strings-string-forma)。
 
     ```csharp
@@ -156,7 +156,7 @@
     ```
 
 
-- 使用 字串插值(String Interpolation)、`string.Format()` 和 `StringBulider` 來串接字串。
+- 使用 字串插值(String Interpolation)、`string.Format()` 和 `StringBulider` 類別來串接字串。
   
 - **避免** 在 字串插值(String Interpolation) 中使用運算式或叫用函式。
     + 可使用變數、屬性、欄位。
@@ -316,39 +316,30 @@
 
 Exceptions
 ----------
-- Do not use try/catch blocks for flow-control.
-- 不要使用try/catch 來做流程控制
+- **不要** 使用 `try`/`catch` 來做流程控制。
 
-- Only catch exceptions that you can handle.
-- 只catch可以處理的例外
+- 只捕抓可以處理的例外事件。
 
-- Never declare an empty catch block.
-- 不要建立一個空的catch區塊
+- **避免** 建立一個空的 `catch` 區塊。
+    + 若必須，請在區塊內加入適當註解說明原因。
 
-- Avoid nesting a try/catch within a catch block.
-- 避免在catch區塊中建立巢狀的try/catch
+- **避免** 在 `catch` 區塊中建立巢狀的 `try`/`catch`。
 
-- Always catch the most derived exception via exception filters.
-- 盡量利用衍生的Exception來篩選catch明確的exception
+- **總是** 使用 最適當的衍生列外型別(the most derived exception) 明確的來篩選、捕抓例外事件。
 
-- Order exception filters from most to least derived exception type.
-- 篩選Exception順序從最高級的到最低的。
+- 排序例外事件捕抓的篩選順序，由最具象的至最抽象的衍生例外型別。
 
-- Avoid re-throwing an exception. Allow it to bubble-up instead.
-- 避免再丟出Exception
-
-- If re-throwing an exception, preserve the original call stack by omitting the exception argument from the throw statement.
-- 如果再丟出Exception,忽略exception參數可以維持原本的call stack。
+- **避免** 重新再丟出一個例外事件。若需再丟出例外，忽略 `throw` 關鍵字後的 `exception` 參數即可維持原本的 `call stack`，而不需重新建立。
 
     ```csharp
-        // Bad!
+        // **BAD**
         catch(Exception ex)
         {
             Log(ex);
             throw ex;
         }
         
-        // Good!
+        // **GOOD**
         catch(Exception ex)
         {
             Log(ex);
@@ -357,14 +348,12 @@ Exceptions
     ```
 
 
-- Only use the finally block to release resources from a try statement.
-- finally區塊只用來釋放try區塊使用的資源
+- 只用 `finally` 區塊來釋放 `try` 區塊使用的資源。
 
-- Always use validation to avoid exceptions.
-- 盡量用驗證，避免exception
+- **總是** 使用驗證來避免例外事件發生。
 
     ```csharp
-        // Bad!
+        // **BAD**
         try
         {
             conn.Close();
@@ -374,7 +363,7 @@ Exceptions
             // handle exception if already closed!
         }
         
-        // Good!
+        // **GOOD**
         if(conn.State != ConnectionState.Closed)
         {
             conn.Close();
@@ -382,35 +371,26 @@ Exceptions
     ```
 
 
-- Always set the innerException property on thrown exceptions so the exception chain & call stack are maintained.
-- 盡可能設定innerException,如此可維持exception chain & call stack
+- **總是** 設定所拋出例外事件的 InnerException 屬性，使 `exception chain` 和 `call stack` 更為完善。
 
-- Avoid defining custom exception classes. Use existing exception classes instead.
-- 避免定義客制的Exception,盡量使用現存的Excepiton取代
+- **避免** 定義新的 `Exception` 類別，盡可能使用已有的 `Excepiton` 類別取代。
 
-- When a custom exception is required;
-- 當客制的Excepiton是必須時。
-    a. Always derive from Exception not ApplicationException.
-    a. 繼承Exception 而不是ApplicationException
+- 當自訂 Excepiton 是必須時，須注意：
+    1. **總是** 繼承 `Exception` 類別，而非 `ApplicationException` 類別。
 
-    b. Always suffix exception class names with the word “Exception”.
-    b. 類別名稱使用”Exception”當後綴詞
+    2. **總是** 使用 ”Exception” 作為類別名稱的後綴詞。
 
-    c. Always add the SerializableAttribute to exception classes.
-    c. 必須加入serialzableAttribute
-
-    d. Always implement the standard “Exception Constructor Pattern”:
-    d. 必須實作標準的建構式
+    3. **總是** 實作 例外建構式設計模式(Exception Constructor Pattern)。
 
     ```csharp
-        public MyCustomException ();
-        public MyCustomException (string message);
-        public MyCustomException (string message, Exception innerException);
+        public MyCustomException();
+        public MyCustomException(string message);
+        public MyCustomException(string message, Exception innerException);
     ```
 
+    4. **總是** 加入 `SerializableAttribute` 修飾類別。
 
-    e. Always implement the deserialization constructor:
-    e. 必須實作反序列化的建構式
+    5. **總是** 實作反序列化的建構式(Deserialization Constructor)。
 
     ```csharp
         protected MyCustomException(SerializationInfo info, StreamingContext contxt);
