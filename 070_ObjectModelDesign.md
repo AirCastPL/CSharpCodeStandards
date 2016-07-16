@@ -77,14 +77,9 @@ General
 - 只有在需要擴充時才使用 `virtual`。
     + 如因設計需求或測試需求時。
 
+- 對於需要多選(或位元遮罩運算) 的 列舉(Enum)，加上 `FlagsAttribute` 特性修飾，並指定每個成員的數值。
+
 - 經常重構！
-
-
-
-
-
-Enum 
-Add the FlagsAttribute to bit-mask multiple options. 
 
 
 Attributes
