@@ -12,7 +12,7 @@
     + `LF`：`0x0A`，用於 Unix 系統。
     + `CR` + `LF`：用於 Windows 系統。
 
-- **不要** 使用 `Tab` 字符來縮排，以 4 個空白表示一階縮排。
+- **不要** 使用 `Tab` 字符來縮排，以 4 個空白 來替代 一階縮排。
 
 - 自在的使用空格和換行符號來隔開與組織程式碼。
     + 適當的縮排能提高閱讀性。
@@ -37,12 +37,18 @@
     ```csharp
         // **BAD**
         User user = User.Get("Stephen Curry");
-        OnlineLog log = WebManager.GetLogByUser(user);
 
         // **GOOD**
         var user = User.Get("Stephen Curry");
-        var log = WebManager.GetLogByUser(user);
+    ```
+    ```csharp
+        // **BAD**
+        OnlineLog log = WebManager.GetLogByUser(user);
 
+        // **GOOD**
+        var log = WebManager.GetLogByUser(user);
+    ```
+    ```csharp
         // **GOOD**
         Func<int> randomNumberGenerator = () => new Random().Next(); 
         ILogger logger = null;
