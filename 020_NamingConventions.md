@@ -112,16 +112,23 @@
         // **GOOD**
         internal class SpecializedAttribute : Attribute
         {…}
-
+    ```
+    ```csharp
+        // **GOOD**
         public class CustomerCollection : CollectionBase
         {…}
-
+    ```
+    ```csharp
+        // **GOOD**
         public class CustomEventArgs : EventArgs
         {…}
-        
+    ```
+    ```csharp
+        // **GOOD**
         private struct InsertParameters : IQueryParameters
         {…}
     ```
+
 
 - **總是** 為自訂的 擴充類別 (Extension Class) 名稱後加上 "Extensions"。
 
