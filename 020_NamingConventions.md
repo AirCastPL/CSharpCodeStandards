@@ -7,7 +7,7 @@
 ----------------------
 - 名稱 必須是 簡潔、有意義、具體、明確且不易混淆的。
 
-- 使用 英文 命名。
+- 使用 英文 單字命名。
 
 - 使用 帕斯卡命名法(Pascal Case) 或 駝峰式命名法(Camel Case)。
 
@@ -42,6 +42,17 @@
     ```
 
 
+- **避免** 於名稱中加入冗於、無意義的前餟或後綴詞。
+    ```csharp
+        // **BAD**
+        private int m_userIndex;
+    ```
+    ```csharp
+        // **BAD**
+        public bool boolIsSunday { get; set; }
+    ```
+
+
 - **不要** 使用以數字開頭的名稱。
     + 實際上 C# 也不允許數字開頭之名稱。
 
@@ -49,18 +60,34 @@
 
 - **避免** 命名與 `.NET Framework` 的命名空間(Namespaces) 或 型別(Types) 衝突。
 
-- **避免** 使用縮寫，除非全名真的過長；且縮寫後不應超過 5 個字母。
+- 少用縮寫，除非全名真的過長；且縮寫後不應超過 5 個字母。
 
 - 縮寫使用 帕斯卡命名法(Pascal Case)。
+    ```csharp
+        // **BAD**
+        var userID = user.GetID();
+        
+        // **GOOD**
+        var userId = user.GetId();
+    ```
+    ```csharp
+        // **BAD**
+        public string WebDNS { get; set; }
+        
+        // **GOOD**
+        public string WebDns { get; set; }
+    ```
+    ```csharp
+        // **BAD**
+        public bool IsKROrJPUser { get; set; }
+        
+        // **GOOD**
+        public bool IsKrOrJpUser { get; set; }
+    ```
+
 
 - 縮寫必須是大家所熟悉且認同的。
 
-- **避免** 於名稱中加入冗於、無意義的前餟或後綴詞。
-    ```csharp
-        // **BAD**
-        private int m_userIndex;
-    ```
- 
 
 2.2 Name Usage & Syntax
 -----------------------
@@ -104,15 +131,35 @@
         public enum GameTypeEnum
         {…}
     ```
+    ```csharp
+        // **BAD**
+        public class MemberClass
+        {…}
+    ```
 
-
-- **總是** 使用 帕斯卡命名法(Pascal Case) 為非私有的 屬性 命名。
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 屬性 命名。
     + 避免使用 `private` 之屬性。
 
 - **總是** 使用 駝峰式命名法(Camel Case) 為私有 欄位 命名，並加上前綴詞 "_"。
-    + 避免使用非 `private` 之欄位。
+    + 避免使用**非** `private` 之欄位。
+    + 唯讀欄位(Readonly Field) 視為 常數，使用 帕斯卡命名法(Pascal Case)。
+    + 靜態欄位(Static Field) 使用 帕斯卡命名法(Pascal Case)。
 
-- **總是** 使用 駝峰式命名法(Camel Case) 為 常數 及 靜態欄位 命名。
+    ```csharp
+        // **GOOD**
+        private int _age;
+    ```
+    ```csharp
+        // **GOOD**
+        private readonly Logger Instance;
+    ```
+    ```csharp
+        // **GOOD**
+        private static string ErrorMessage;
+    ```
+
+
+- **總是** 使用 帕斯卡命名法(Pascal Case) 為 常數(Constant)、唯讀欄位(Readonly Field)、靜態欄位(Static Field) 命名。
 
 - **避免** 屬性名稱中包含其所屬 類別、結構、列舉 的名稱。
     ```csharp
@@ -132,7 +179,8 @@
     ```csharp
         // **GOOD**
         var isSunday = DateTime.Today.DayOfWeek == DayOfWeek.Sunday;
-
+    ```
+    ```csharp
         // **GOOD**
         public bool HasEnoughMoney => user.GetMoney() >= cart.GetTotalMoney();
     ```
