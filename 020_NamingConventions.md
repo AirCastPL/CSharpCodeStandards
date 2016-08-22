@@ -8,6 +8,14 @@
 - 名稱 必須是 簡潔、有意義、具體、明確且不易混淆的。
 
 - 使用 英文 單字命名。
+    ```csharp
+        // **BAD** 
+        // (［名稱］漢語拼音)
+        var mingChen = user.GetName();
+        
+        // **GOOD**
+        var userName = user.GetName();
+    ```
 
 - 使用 帕斯卡命名法(Pascal Case) 或 駝峰式命名法(Camel Case)。
 
@@ -57,6 +65,13 @@
     + 實際上 C# 也不允許數字開頭之名稱。
 
 - **避免** 使用 C# 保留字做為名稱。
+    ```csharp
+        // **BAD**
+        var @object = JsonConverter.DeserializeObject(response);
+        
+        // **GOOD**
+        var dataSet = JsonConverter.DeserializeObject(response);
+    ```
 
 - **避免** 命名與 `.NET Framework` 的命名空間(Namespaces) 或 型別(Types) 衝突。
 
@@ -145,7 +160,6 @@
     ```
 
 - **總是** 使用 帕斯卡命名法(Pascal Case) 為 屬性 命名。
-    + 避免使用 `private` 之屬性。
 
 - **總是** 使用 駝峰式命名法(Camel Case) 為私有 欄位 命名，並加上前綴詞 "_"。
     + 避免使用**非** `private` 之欄位。
@@ -228,7 +242,7 @@
 | Parameter               |               |                      |            |             | **c**     |
 | Delegate                | **P**         | **P**                | **P**      | **P**       | **P**     |
 | Event                   | **P**         | **P**                | **P**      | **P**       | **P**     |
-| Property                | **P**         | **P**                | **P**      | **P**       | x         |
+| Property                | **P**         | **P**                | **P**      | **P**       | **P**     |
 | Field                   | x             | x                    | x          | x           | **_c**    |
 | Static Field            | **P**         | **P**                | **P**      | **P**       | **P**     |
 | Constant                | **P**         | **P**                | **P**      | **P**       | **P**     |
