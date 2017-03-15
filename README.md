@@ -1,7 +1,5 @@
 # C# Coding Standards and Naming Conventions
 
-[![Join the chat at https://gitter.im/ooxxTaiwan/CSharpCodeStandards](https://badges.gitter.im/ooxxTaiwan/CSharpCodeStandards.svg)](https://gitter.im/ooxxTaiwan/CSharpCodeStandards?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ## TODO
 - [x] [1. 序章 (Introduction)](010_Introduction.md)
     - 用途說明
